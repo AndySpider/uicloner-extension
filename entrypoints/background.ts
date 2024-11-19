@@ -1,3 +1,4 @@
+import { generateCodeStream } from "@/lib/llm";
 import { CloneTask, CloneTaskState, CodeStack } from "@/lib/types";
 
 let popupPort: any;
@@ -65,7 +66,29 @@ async function generateCode(uiImage: string, stack: string): Promise<void> {
         return;
     }
 
-    // TODO: get saved setting and call LLM API to generate code in stream mode
+    try {
+        // get saved setting and call LLM API to generate code in stream mode
+        const result = await browser.storage.local.get(['apiKey', 'apiEndpoint', 'model']);
+
+        if (result.apiKey && result.apiEndpoint && result.model) {
+            await generateCodeStream(result.apiKey, result.model, result.apiEndpoint, uiImage, stack, (chunk) => {
+                updateCloneTask('generating', undefined, curCloneTask!.code + chunk);
+            });
+
+            // when done, check to remove the html remarkers
+            const stripedCode = extractHTMLContent(curCloneTask.code);
+
+            if (stripedCode) {
+                updateCloneTask('generating', undefined, stripedCode);
+            }
+        } else {
+            // no settings, show error message
+            throw new Error('LLM API not set, please set up first');
+        }
+    } catch (err) {
+        console.error('Failed to generateCode:', err);
+        throw err;
+    }
 }
 
 export default defineBackground(() => {
@@ -90,6 +113,10 @@ export default defineBackground(() => {
 
             port.onDisconnect.addListener(() => {
                 popupPort = undefined;
+                // clear the task if it's in error state
+                if (curCloneTask?.state === 'generateError') {
+                    curCloneTask = undefined;
+                }
             });
         }
     })

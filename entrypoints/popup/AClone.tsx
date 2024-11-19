@@ -71,7 +71,7 @@ export function AClone({ task }: { task: CloneTask }) {
         <div className="flex flex-col items-center justify-center h-full text-base">
             <Alert variant="destructive">
                 <AlertCircle className="h-4 w-4" />
-                <AlertTitle>Something went wrong, please try again.</AlertTitle>
+                <AlertTitle>Something went wrong, please check.</AlertTitle>
                 <AlertDescription>
                     {task.errorMsg}
                 </AlertDescription>

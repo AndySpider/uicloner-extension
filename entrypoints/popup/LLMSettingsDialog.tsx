@@ -19,7 +19,7 @@ export function LLMSettingsDialog() {
     const [hasSettings, setHasSettings] = useState(false)
 
     useEffect(() => {
-        chrome.storage.sync.get(['apiKey', 'apiEndpoint', 'model'], (result) => {
+        browser.storage.local.get(['apiKey', 'apiEndpoint', 'model'], (result) => {
             setApiKey(result.apiKey || '');
             setApiEndpoint(result.apiEndpoint || '');
             setModel(result.model || '');
@@ -32,7 +32,7 @@ export function LLMSettingsDialog() {
     }, [])
 
     const handleSave = () => {
-        chrome.storage.sync.set({
+        browser.storage.local.set({
             apiKey,
             apiEndpoint,
             model
