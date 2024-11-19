@@ -1,0 +1,92 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    :root {
+        --background: 240 5% 98%;
+        --foreground: 240 4% 16%;
+
+        --card: 0 0% 100%;
+        --card-foreground: 240 4% 16%;
+
+        --popover: 0 0% 100%;
+        --popover-foreground: 240 4% 16%;
+
+        --primary: 161 93% 30%;
+        --primary-foreground: 0 0% 100%;
+
+        --secondary: 240 5% 96%;
+        --secondary-foreground: 240 4% 16%;
+
+        --muted: 240 4% 96%;
+        --muted-foreground: 240 4% 46%;
+
+        --accent: 158 84% 95%;
+        --accent-foreground: 161 93% 30%;
+
+        --destructive: 0 84% 60%;
+        --destructive-foreground: 0 0% 98%;
+
+        --border: 240 5% 88%;
+        --input: 240 5% 88%;
+
+        --ring: 161 93% 30%;
+
+        --radius: 0.75rem;
+
+        --chart-1: 161 93% 30%;
+        --chart-2: 158 84% 95%;
+        --chart-3: 240 4% 46%;
+        --chart-4: 158 60% 40%;
+        --chart-5: 158 70% 35%;
+    }
+
+    .dark {
+        --background: 240 10% 4%;
+        --foreground: 0 0% 95%;
+
+        --card: 240 10% 8%;
+        --card-foreground: 0 0% 95%;
+
+        --popover: 240 10% 4%;
+        --popover-foreground: 0 0% 95%;
+
+        --primary: 158 70% 45%;
+        --primary-foreground: 0 0% 100%;
+
+        --secondary: 240 4% 16%;
+        --secondary-foreground: 0 0% 98%;
+
+        --muted: 240 4% 16%;
+        --muted-foreground: 240 5% 65%;
+
+        --accent: 158 30% 14%;
+        --accent-foreground: 0 0% 98%;
+
+        --destructive: 0 63% 31%;
+        --destructive-foreground: 0 86% 97%;
+
+        --border: 240 4% 16%;
+        --input: 240 4% 16%;
+
+        --ring: 158 70% 45%;
+
+        --chart-1: 158 70% 45%;
+        --chart-2: 158 60% 35%;
+        --chart-3: 158 50% 25%;
+        --chart-4: 158 40% 55%;
+        --chart-5: 158 30% 65%;
+    }
+}
+
+@layer base {
+    * {
+        @apply border-border;
+    }
+
+    body {
+        @apply bg-background text-foreground;
+        font-feature-settings: "rlig" 1, "calt" 1;
+    }
+}
