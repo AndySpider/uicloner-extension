@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg width="128" height="128" version="1.1" viewBox="0 0 32.994 32.994" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+ <defs>
+  <linearGradient id="linearGradient2" x1="116.87" x2="85.412" y1="80.79" y2="81.323" gradientUnits="userSpaceOnUse">
+   <stop stop-color="#059467" offset="0"/>
+   <stop stop-color="#09afbb" offset="1"/>
+  </linearGradient>
+ </defs>
+ <g transform="translate(-84.079 -64.614)">
+  <rect x="84.079" y="64.614" width="32.994" height="32.994" ry="4.6217" fill="url(#linearGradient2)" stroke-width=".25776"/>
+  <g stroke-linecap="square" stroke-linejoin="bevel">
+   <path d="m102.98 86.856v1.6641c0 1.5396-1.2394 2.779-2.779 2.779h-7.1072c-1.5396 0-2.779-1.2395-2.779-2.779v-7.1072c0-1.5396 1.2395-2.779 2.779-2.779l1.6961 1e-6" fill="none" stroke="#fefefe" stroke-width="2.0796"/>
+   <path d="m100.95 70.924h7.1072c1.5396 0 2.779 1.2394 2.779 2.779v7.1072c0 1.5396-1.2394 2.779-2.779 2.779h-7.1072c-1.5396 0-2.779-1.2394-2.779-2.779v-7.1072c0-1.5396 1.2395-2.779 2.779-2.779z" fill="none" stroke="#fefefe" stroke-width="2.0796"/>
+   <text x="102.04436" y="79.755112" fill="#000000" fill-opacity=".9" font-size="6.8737px" stroke="#000000" stroke-width=".88593" xml:space="preserve"><tspan x="102.04436" y="79.755112" fill="#ffffff" font-size="6.8737px" stroke="#ffffff" stroke-width=".88593">C</tspan></text>
+  </g>
+ </g>
+</svg>
