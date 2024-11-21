@@ -4,18 +4,23 @@ UICloner is a AI-powered browser extension that allows you to **clone any UI com
 
 ## ✨ Key Features
 
-- 🎯 One-Click Selection - Select UI components to clone with a simple click
-- 🎨 Multiple Format Support - Export to HTML + Tailwind CSS or HTML + pure CSS code
+- 🎯 One-Click Selection - Select UI components to clone with a simple click on any website
+- 🎨 Multiple Format Support - Generate to HTML + Tailwind CSS or HTML + pure CSS code
 - 🔄 Live Preview - Real-time preview of cloned UI and generated code
 
 ## 🚀 Quick Start
 
+### Install and Setup
+
 1. Install UICloner extension from Chrome Web Store
-2. Click the extension icon and setup a vision LLM API (e.g., GPT-4o or Claude 3.5, your API is saved locally)
-3. Open any webpage and click the extension icon
-4. Use the selection tool to pick UI components
-5. Wait for code generation to complete
-6. Copy the generated code to your project
+2. Click the extension icon and setup a vision LLM API (GPT-4o or Claude 3.5 recommended, your API is saved locally!)
+
+### Usage
+
+1. Open any webpage and click the extension icon
+2. Use the selection tool to pick UI components on the webpage
+3. Wait for code generation to complete
+4. Copy the generated code to your project
 
 ## 🛠️ Development Setup
 Install dependencies
@@ -33,10 +38,11 @@ pnpm build
 
 ## 🔧 Tech Stack
 
+- WXT (Browser Extension Development)
 - React 18
 - Tailwind CSS
 - Shadcn UI Components
-- WXT (Browser Extension Development)
+- Langchain
 - TypeScript
 
 ## 🤝 Contributing
