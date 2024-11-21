@@ -1,3 +1,7 @@
+<div align="center">
+  <img src="https://github.com/AndySpider/uicloner-extension/blob/main/public/icon/128.png?raw=true" width="128" height="128" alt="UICloner Logo">
+</div>
+
 # UICloner Extension
 
 UICloner is a AI-powered browser extension that allows you to **clone any UI component from any webpage** with a single click and automatically generates the corresponding code implementation.
