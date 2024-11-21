@@ -8,6 +8,10 @@ UICloner is a AI-powered browser extension that allows you to **clone any UI com
 - 🎨 Multiple Format Support - Generate to HTML + Tailwind CSS or HTML + pure CSS code
 - 🔄 Live Preview - Real-time preview of cloned UI and generated code
 
+### Demo - clone the Facebook login form
+
+![Demo](https://github.com/AndySpider/uicloner-extension/blob/develop/screenshots/clone-facebook-login-demo.gif?raw=true)
+
 ## 🚀 Quick Start
 
 ### Install and Setup
