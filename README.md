@@ -17,7 +17,7 @@ UICloner is a AI-powered browser extension that allows you to **clone any UI com
 ### Install and Setup
 
 1. Install UICloner extension from Chrome Web Store
-2. Click the extension icon and setup a vision LLM API (GPT-4o or Claude 3.5 recommended, your API is saved locally!)
+2. Click the extension icon and setup a vision LLM API (**GPT-4o** or **Claude 3.5** recommended, your API is saved locally!)
 
 ### Usage
 
