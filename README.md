@@ -4,6 +4,12 @@
 
 # UICloner Extension
 
+<div align="center">
+  <a href="https://chromewebstore.google.com/detail/uicloner/glnjgjbljegeblecpjphamopdikhflpd">
+    <img src="https://img.shields.io/chrome-web-store/v/glnjgjbljegeblecpjphamopdikhflpd?label=Chrome%20Web%20Store&style=for-the-badge&logo=google-chrome&logoColor=white" alt="Install from Chrome Web Store">
+  </a>
+</div>
+
 UICloner is a AI-powered browser extension that allows you to **clone any UI component from any webpage** with a single click and automatically generates the corresponding code implementation.
 
 ## ✨ Key Features
