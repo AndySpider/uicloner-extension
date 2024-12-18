@@ -23,7 +23,9 @@
     "postinstall": "wxt prepare"
   },
   "dependencies": {
+    "@langchain/anthropic": "^0.3.11",
     "@langchain/core": "^0.3.18",
+    "@langchain/google-genai": "^0.1.5",
     "@langchain/openai": "^0.3.14",
     "@radix-ui/react-alert-dialog": "^1.1.2",
     "@radix-ui/react-avatar": "^1.1.1",
