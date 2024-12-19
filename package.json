@@ -2,7 +2,7 @@
   "name": "uicloner",
   "description": "Clone any web UI you see, instantly",
   "private": true,
-  "version": "0.1.0",
+  "version": "0.1.1",
   "type": "module",
   "author": {
     "name": "Andy Huang",
