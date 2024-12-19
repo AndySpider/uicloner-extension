@@ -1,4 +1,4 @@
-import { ChatMessage } from "@langchain/core/messages";
+import { ChatMessage, HumanMessage, SystemMessage } from "@langchain/core/messages";
 import { ChatOpenAI } from "@langchain/openai";
 import { ChatAnthropic } from "@langchain/anthropic";
 import { ChatGoogleGenerativeAI } from "@langchain/google-genai";
@@ -110,28 +110,30 @@ function buildClaudeLLM(apiKey: string, model: string, image: string, systemProm
 
     const userContent = [
         {
-            type: "image",
-            source: {
-                type: "base64",
-                media_type: "image/png",
-                data: image.replace(/^data:image\/\w+;base64,/, '')
+            type: "image_url",
+            image_url: {
+                url: image,
+                detail: 'high'
             }
         },
         {
-            type: "text",
+            type: 'text',
             text: USER_PROMPT
         }
     ];
 
+    // FIXME: use ChatMessage will result in "generic" type not supported error, why?
     const messages = [
-        new ChatMessage({
-            role: 'system',
-            content: systemPrompt
+        new SystemMessage({
+            content: [
+                {
+                    type: "text",
+                    text: systemPrompt
+                }
+            ]
         }),
-        new ChatMessage({
-            role: 'human',
-            content: userContent
-        }),
+        new HumanMessage({
+            content: userContent})
     ];
 
     return {
