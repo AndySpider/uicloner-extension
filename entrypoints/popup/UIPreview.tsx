@@ -45,7 +45,7 @@ export function UIPreview({ srcUI, stack, code, genFinished }:
 
     return (
         <div ref={containerRef} className="w-full h-[420px] bg-white border flex items-center justify-center rounded-md overflow-hidden">
-            <div ref={scalerRef} className="w-fit h-fit bg-white rounded-md ring-1 ring-gray-300">
+            <div ref={scalerRef} className="w-fit h-fit bg-white ring-1 ring-gray-300">
                 {/* FIXME: user can click the url on render which will cause issues */}
                 {render}
             </div>
