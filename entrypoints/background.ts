@@ -68,10 +68,32 @@ async function generateCode(uiImage: string, stack: string): Promise<void> {
 
     try {
         // get saved setting and call LLM API to generate code in stream mode
-        const result = await browser.storage.local.get(['apiKey', 'apiEndpoint', 'model']);
+        const result = await browser.storage.local.get('llmSettings');
+        const llmSettings = result.llmSettings;
 
-        if (result.apiKey && result.apiEndpoint && result.model) {
-            await generateCodeStream(result.apiKey, result.model, result.apiEndpoint, uiImage, stack, (chunk) => {
+        if (!llmSettings) {
+            throw new Error('LLM settings not found, please set up first');
+        }
+
+        const currentProvider = llmSettings.currentProvider;
+        const providerSettings = llmSettings.providers[currentProvider];
+
+        if (!providerSettings) {
+            throw new Error('Current provider settings not found, please set up first');
+        }
+
+        const { apiKey, model, apiEndpoint } = providerSettings;
+
+        // Check required settings based on provider
+        if (currentProvider === 'openai_compatible' && !apiEndpoint) {
+            throw new Error('API endpoint is required for OpenAI Compatible provider');
+        }
+
+        if (!apiKey || !model) {
+            throw new Error('API key and model are required');
+        }
+
+        await generateCodeStream(currentProvider, apiKey, model, apiEndpoint || '', uiImage, stack, (chunk) => {
                 updateCloneTask('generating', undefined, curCloneTask!.code + chunk);
             });
 
@@ -80,10 +102,6 @@ async function generateCode(uiImage: string, stack: string): Promise<void> {
 
             if (stripedCode) {
                 updateCloneTask('generating', undefined, stripedCode);
-            }
-        } else {
-            // no settings, show error message
-            throw new Error('LLM API not set, please set up first');
         }
     } catch (err) {
         console.error('Failed to generateCode:', err);

@@ -1,5 +1,7 @@
-import { ChatMessage } from "@langchain/core/messages";
+import { ChatMessage, HumanMessage, SystemMessage } from "@langchain/core/messages";
 import { ChatOpenAI } from "@langchain/openai";
+import { ChatAnthropic } from "@langchain/anthropic";
+import { ChatGoogleGenerativeAI } from "@langchain/google-genai";
 import { StringOutputParser } from "@langchain/core/output_parsers";
 
 const USER_PROMPT = `
@@ -55,22 +57,17 @@ const SystemPrompts: {
     html_tailwind: HTML_TAILWIND_SYSTEM_PROMPT,
 });
 
-
-export async function generateCodeStream(apiKey: string, model: string, apiEndpoint: string, image: string, stack: string, handleChunk: (output: string) => void): Promise<void> {
+function buildOpenAILLM(apiKey: string, model: string, image: string, systemPrompt: string, apiEndpoint?: string) {
     const llm = new ChatOpenAI({
         model,
         apiKey,
         temperature: 0,
-        configuration: {
-            baseURL: apiEndpoint
-        },
+        ...(apiEndpoint && {
+            configuration: {
+                baseURL: apiEndpoint
+            }
+        })
     });
-
-    const systemPrompt = SystemPrompts[stack];
-
-    if (!systemPrompt) {
-        throw new Error(`Invalid stack: ${stack}`);
-    }
 
     const userContent = [
         {
@@ -96,6 +93,122 @@ export async function generateCodeStream(apiKey: string, model: string, apiEndpo
             content: userContent
         }),
     ];
+
+    return {
+        llm,
+        messages
+    };
+}
+
+function buildClaudeLLM(apiKey: string, model: string, image: string, systemPrompt: string) {
+    const llm = new ChatAnthropic({
+        model,
+        apiKey,
+        temperature: 0,
+        maxRetries: 1,
+    });
+
+    const userContent = [
+        {
+            type: "image_url",
+            image_url: {
+                url: image,
+                detail: 'high'
+            }
+        },
+        {
+            type: 'text',
+            text: USER_PROMPT
+        }
+    ];
+
+    // FIXME: use ChatMessage will result in "generic" type not supported error, why?
+    const messages = [
+        new SystemMessage({
+            content: [
+                {
+                    type: "text",
+                    text: systemPrompt
+                }
+            ]
+        }),
+        new HumanMessage({
+            content: userContent})
+    ];
+
+    return {
+        llm,
+        messages
+    };
+}
+
+function buildGeminiLLM(apiKey: string, model: string, image: string, systemPrompt: string) {
+    const llm = new ChatGoogleGenerativeAI({
+        model,
+        apiKey,
+        temperature: 0,
+        maxRetries: 1,
+    });
+
+    const userContent = [
+        {
+            type: "image_url",
+            image_url: image
+        },
+        {
+            type: "text",
+            text: `${systemPrompt}\n\n${USER_PROMPT}`
+        }
+    ];
+
+    const messages = [
+        new ChatMessage({
+            role: 'system',
+            content: systemPrompt
+        }),
+        new ChatMessage({
+            role: 'human',
+            content: userContent
+        }),
+    ];
+
+    return {
+        llm,
+        messages
+    };
+}
+
+export async function generateCodeStream(
+    provider: 'openai' | 'claude' | 'gemini' | 'openai_compatible',
+    apiKey: string,
+    model: string,
+    apiEndpoint: string,
+    image: string,
+    stack: string,
+    handleChunk: (output: string) => void
+): Promise<void> {
+    const systemPrompt = SystemPrompts[stack];
+    if (!systemPrompt) {
+        throw new Error(`Invalid stack: ${stack}`);
+    }
+
+    let llm;
+    let messages;
+
+    switch (provider) {
+        case 'openai':
+        case 'openai_compatible':
+            ({ llm, messages } = buildOpenAILLM(apiKey, model, image, systemPrompt, apiEndpoint));
+            break;
+        case 'claude':
+            ({ llm, messages } = buildClaudeLLM(apiKey, model, image, systemPrompt));
+            break;
+        case 'gemini':
+            ({ llm, messages } = buildGeminiLLM(apiKey, model, image, systemPrompt));
+            break;
+        default:
+            throw new Error(`Invalid provider: ${provider}`);
+    }
 
     const parser = new StringOutputParser();
     const chain = llm.pipe(parser);
